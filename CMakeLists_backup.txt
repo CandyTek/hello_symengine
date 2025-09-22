@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.15)
+project(hello_symengine LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg_installed/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
+
+add_executable(hello_world hello_world.cpp)
+
+# SymEngine + GMP
+find_package(SymEngine REQUIRED)
+find_package(GMP CONFIG REQUIRED)
+
+target_link_libraries(hello_world
+        PRIVATE
+        symengine
+        GMP::gmp
+        GMP::gmpxx
+)
+
