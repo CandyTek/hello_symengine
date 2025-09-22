@@ -10,4 +10,4 @@ for /f "usebackq tokens=*" %%i in (`call "%ProgramFiles(x86)%\Microsoft Visual S
 call "%VS_PATH%\Common7\Tools\VsDevCmd.bat"
 
 
-vcpkg install --triplet x64-windows-release --binarycaching
+vcpkg install --triplet x64-windows --binarycaching

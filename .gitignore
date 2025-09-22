@@ -34,11 +34,8 @@
 # compile directory
 **/build/
 
-# vscode
-.vscode/
-.claude/
-cmake/
-cmake-build-debug-ninja-vs/
-cmake-build-debug-visual-studio/
-vcpkg_installed/
-.idea/
+
+/cmake-build-debug
+/.idea
+/vcpkg_installed
+/.claude
