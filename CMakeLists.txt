@@ -33,3 +33,30 @@ else()
     )
 endif()
 
+# 运行时需要 DLL
+set(SYMENGINE_DLLS
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/symengine-0.11.dll"
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/gmp-10.dll"
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/mpfr-6.dll"
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/arb-2.dll"
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/flint-17.dll"
+        "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/bin/pthreadVC3.dll"
+)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(SYMENGINE_DLLS
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/symengine-0.11.dll"
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/gmp-10.dll"
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/mpfr-6.dll"
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/arb-2.dll"
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/flint-17.dll"
+            "${CMAKE_SOURCE_DIR}/vcpkg_installed/${VCPKG_TRIPLET}/debug/bin/pthreadVC3d.dll"
+    )
+endif()
+
+# 复制 DLL 到可执行文件输出目录
+foreach(DLL ${SYMENGINE_DLLS})
+    add_custom_command(TARGET hello_world POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${DLL} $<TARGET_FILE_DIR:hello_world>)
+endforeach()

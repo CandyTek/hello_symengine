@@ -39,3 +39,4 @@
 /.idea
 /vcpkg_installed
 /.claude
+/cmake-build-debug-visual-studio2
